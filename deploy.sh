@@ -21,7 +21,8 @@ killTomcat()
     fi
 }
 cd $PROJ_PATH/order
-mvn clean install
+mvn clean
+mvn install
 
 # 停tomcat
 killTomcat
@@ -29,15 +30,13 @@ killTomcat
 # 删除原有工程
 rm -rf $TOMCAT_APP_PATH/webapps/ROOT
 rm -f $TOMCAT_APP_PATH/webapps/ROOT.war
-rm -f $TOMCAT_APP_PATH/webapps/ROOT
 rm -f $TOMCAT_APP_PATH/webapps/order.war
-rm -f $TOMCAT_APP_PATH/webapps/order
 
 # 复制新的工程
-cp -r $PROJ_PATH/target/order $TOMCAT_APP_PATH/webapps/
+cp $PROJ_PATH/target/order.war $TOMCAT_APP_PATH/webapps/
 
 cd $TOMCAT_APP_PATH/webapps/
-mv order ROOT
+mv order.war ROOT.war
 
 # 启动Tomcat
 cd $TOMCAT_APP_PATH/
